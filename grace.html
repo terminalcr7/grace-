@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Grace, my Valentine? 💕</title>
+    <style>
+        /* reset & base — ultra mobile friendly */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 30% 30%, #ffd9e5, #ffb0c0 70%, #f28b9f);
+            font-family: 'Segoe UI', 'Helvetica Neue', system-ui, -apple-system, Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* floating animated love军团 */
+        .floating-emoji-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-emoji-bg span {
+            position: absolute;
+            bottom: -30px;
+            font-size: 2.4rem;
+            opacity: 0.45;
+            animation: driftUp 14s infinite linear;
+            user-select: none;
+            filter: drop-shadow(0 5px 8px rgba(255, 80, 120, 0.3));
+        }
+
+        @keyframes driftUp {
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0.5; }
+            100% { transform: translateY(-120vh) rotate(20deg) scale(1.3); opacity: 0; }
+        }
+
+        /* main card — luscious, glossy, love-infused */
+        .love-card {
+            background: rgba(255, 245, 250, 0.8);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 56px 28px 56px 28px;
+            box-shadow: 0 35px 55px rgba(200, 30, 70, 0.35),
+                        0 0 0 6px rgba(255, 255, 255, 0.7),
+                        inset 0 5px 20px #fff8;
+            max-width: 480px;
+            width: 100%;
+            padding: 32px 20px 42px 20px;
+            text-align: center;
+            z-index: 15;
+            position: relative;
+            border: 2px solid white;
+            transition: border-radius 0.3s ease;
+        }
+
+        /* grace name huge + sparkle */
+        .grace-glow {
+            font-size: clamp(2.8rem, 15vw, 4.2rem);
+            font-weight: 1000;
+            background: linear-gradient(145deg, #ffecf0, #fff);
+            display: inline-block;
+            padding: 10px 25px 10px 30px;
+            border-radius: 120px;
+            margin: 10px 0 12px;
+            box-shadow: 0 12px 0 #ff4d6d, 0 20px 25px #ffb6c1;
+            color: #bc1050;
+            text-shadow: 4px 4px 0 #ffeef2;
+            letter-spacing: 2px;
+            border: 3px solid white;
+            transform: rotate(-0.5deg);
+        }
+
+        .question-bubble {
+            background: #fff0f5ee;
+            border-radius: 80px 80px 80px 20px;
+            padding: 22px 10px;
+            margin: 25px 0 20px;
+            border: 3px solid white;
+            box-shadow: 0 8px 0 #ff8da1, inset 0 -3px 0 #ffe2e9;
+            font-size: clamp(1.8rem, 7vw, 2.5rem);
+            font-weight: 800;
+            color: #96003a;
+            line-height: 1.3;
+            backdrop-filter: blur(2px);
+        }
+
+        .button-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            margin: 28px 0 20px;
+        }
+
+        /* YES — big, bold, poppable */
+        .yes-love {
+            background: #ff3366;
+            border: none;
+            padding: 24px 40px;
+            font-size: clamp(2.5rem, 12vw, 4rem);
+            font-weight: 1000;
+            color: white;
+            text-shadow: 4px 4px 0 #aa2e4e;
+            border-radius: 120px;
+            box-shadow: 0 16px 0 #9e1035, 0 20px 30px #ff99bb;
+            width: 100%;
+            max-width: 360px;
+            cursor: pointer;
+            transition: all 0.12s ease;
+            border: 4px solid #ffeef6;
+            transform: translateY(0);
+            letter-spacing: 3px;
+            line-height: 1.2;
+            -webkit-touch-callout: none;
+        }
+
+        .yes-love:active {
+            transform: translateY(10px);
+            box-shadow: 0 6px 0 #9e1035, 0 20px 30px #ff99bb;
+        }
+
+        /* NO — visually disabled, crossed, no interaction */
+        .no-block {
+            width: 100%;
+            max-width: 220px;
+            margin: 5px auto;
+            pointer-events: none;  /* no clicks, no touch */
+        }
+
+        .no-button {
+            background: #d9d0d3;
+            border: 4px solid #c7b2bb;
+            padding: 14px 25px;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #6d5a63;
+            border-radius: 70px;
+            box-shadow: 0 9px 0 #8e7a84;
+            width: 100%;
+            opacity: 0.55;
+            text-decoration: line-through 5px #c5305e;
+            transform: scale(0.92);
+            filter: grayscale(60%);
+            cursor: default;
+            backdrop-filter: blur(3px);
+            letter-spacing: 2px;
+        }
+
+        .no-block small {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-top: 10px;
+            background: #ffdae5;
+            padding: 8px 10px;
+            border-radius: 60px;
+            color: #ad1f4b;
+            border: 2px solid white;
+            box-shadow: 0 5px 0 #ffb0c3;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        /* mini heart row */
+        .heart-row {
+            font-size: 2.2rem;
+            letter-spacing: 12px;
+            margin: 20px 0 10px;
+            filter: drop-shadow(0 0 12px hotpink);
+            word-break: break-word;
+        }
+
+        /* surprise message (hidden initially) */
+        .love-message {
+            margin-top: 35px;
+            background: #ffecf0dd;
+            backdrop-filter: blur(10px);
+            border-radius: 70px 20px 70px 20px;
+            padding: 22px 12px;
+            border: 5px solid white;
+            font-size: clamp(2rem, 8vw, 2.8rem);
+            font-weight: 900;
+            color: #b81b4b;
+            box-shadow: 0 15px 0 #ff88a5;
+            transition: 0.3s;
+            opacity: 0;
+            transform: scale(0.3) rotate(-3deg);
+            pointer-events: none;
+            line-height: 1.5;
+        }
+
+        .love-message.show {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+            pointer-events: auto;
+            box-shadow: 0 20px 30px gold, 0 15px 0 #ff88a5;
+        }
+
+        /* CELEBRATION OVERLAY — massive love explosion */
+        .explosion-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            visibility: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .explosion-overlay.active {
+            visibility: visible;
+            backdrop-filter: blur(5px) brightness(1.2);
+            -webkit-backdrop-filter: blur(5px) brightness(1.2);
+        }
+
+        .shower-emoji {
+            position: absolute;
+            font-size: clamp(2.5rem, 10vw, 7rem);
+            filter: drop-shadow(0 0 15px deeppink);
+            animation: popLove 0.5s cubic-bezier(0.3, 1.3, 0.6, 1) forwards;
+            transform: scale(0) rotate(0deg);
+            white-space: nowrap;
+            text-shadow: 2px 2px 0 white;
+        }
+
+        @keyframes popLove {
+            0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+            60% { transform: scale(1.3) rotate(15deg); opacity: 1; }
+            100% { transform: scale(1) rotate(5deg); opacity: 1; }
+        }
+
+        /* extra personalized big message */
+        .big-love-text {
+            font-size: 3.8rem;
+            font-weight: 1000;
+            color: #fff0f5;
+            text-shadow: 5px 5px 0 #c41e4e, 0 0 45px gold;
+            background: #ff3b6faa;
+            padding: 15px 25px;
+            border-radius: 100px;
+            border: 5px solid white;
+            backdrop-filter: blur(6px);
+            white-space: nowrap;
+            max-width: 90vw;
+        }
+
+        /* small screens adjustments */
+        @media (max-width: 380px) {
+            .love-card { padding: 22px 15px 32px; }
+            .grace-glow { font-size: 2.5rem; padding: 8px 18px; }
+            .question-bubble { font-size: 1.8rem; }
+            .yes-love { font-size: 2.8rem; padding: 18px 20px; max-width: 290px; }
+            .no-button { font-size: 2rem; }
+            .heart-row { font-size: 1.8rem; letter-spacing: 8px; }
+        }
+
+        /* prevent overflow */
+        img, svg { display: none; }
+    </style>
+</head>
+<body>
+    <!-- floating background full of love stuff -->
+    <div class="floating-emoji-bg" id="loveBg"></div>
+
+    <div class="love-card">
+        <div style="font-size: 2rem; opacity:0.9;">💘 VALENTINE'S DAY 💘</div>
+        <div class="grace-glow">💕 GRACE 💕</div>
+
+        <div class="question-bubble">
+            ✨ will you be my valentine? ✨
+        </div>
+
+        <div class="button-section">
+            <!-- only real answer -->
+            <button class="yes-love" id="yesBtn">YES 💖</button>
+
+            <!-- no is not possible – visually dead -->
+            <div class="no-block">
+                <div class="no-button">No</div>
+                <small>🚫 only yes exists 🚫</small>
+            </div>
+        </div>
+
+        <div class="heart-row">
+            ❤️🧡💛💚💙💜🖤🤍
+        </div>
+
+        <!-- hidden message for after yes -->
+        <div class="love-message" id="loveMessage">
+            <span style="font-size: 3.5rem;">🥰💖😘💗</span><br>
+            YAY! I LOVE YOU, GRACE!<br>
+            <span style="font-size: 2.5rem;">💓💞💕💘💝💟💌💋</span>
+        </div>
+    </div>
+
+    <!-- overlay for huge emoji shower (yes click) -->
+    <div class="explosion-overlay" id="explosionOverlay"></div>
+
+    <script>
+        (function() {
+            // fill background with floating love emojis
+            const bg = document.getElementById('loveBg');
+            const loveEmojis = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🤎', '🖤', '🤍', '💔', '❣️', '💕', '💞', '💓', '💗', '💖', '💘', '💝', '💟', '♥️', '💋', '👩‍❤️‍💋‍👩', '💏', '😍', '🥰', '😘', '💐', '🌹', '🌸', '🍫', '🍓', '🎀', '✨', '💫', '⭐'];
+            
+            for (let i = 0; i < 42; i++) {
+                const span = document.createElement('span');
+                span.innerText = loveEmojis[Math.floor(Math.random() * loveEmojis.length)];
+                span.style.left = Math.random() * 100 + '%';
+                span.style.fontSize = (1.6 + Math.random() * 2.4) + 'rem';
+                span.style.animationDuration = (9 + Math.random() * 14) + 's';
+                span.style.animationDelay = (Math.random() * 6) + 's';
+                span.style.opacity = 0.3 + Math.random() * 0.6;
+                bg.appendChild(span);
+            }
+
+            // grab elements
+            const yesBtn = document.getElementById('yesBtn');
+            const messageBox = document.getElementById('loveMessage');
+            const overlay = document.getElementById('explosionOverlay');
+
+            // love explosion on YES
+            yesBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // show secret love message
+                messageBox.classList.add('show');
+
+                // activate overlay
+                overlay.classList.add('active');
+                overlay.innerHTML = ''; // clear any previous
+
+                // massive amount — 250 love emojis + special
+                const megaEmojis = ['❤️', '🧡', '💛', '💚', '💙', '💜', '💕', '💞', '💓', '💗', '💖', '💘', '💝', '💟', '♥️', '🥰', '😍', '😘', '💋', '👩‍❤️‍💋‍👩', '💏', '💐', '🌹', '🌸', '🌺', '🍫', '🍬', '🍓', '🍒', '🎈', '🎀', '✨', '💫', '⭐', '🌈', '💝💖', '❤️‍🔥', '❤️‍🩹', '💌', '💞💘', '😻', '💃', '🫶', '🥹', '💗💖'];
+                
+                for (let i = 0; i < 220; i++) {
+                    const em = document.createElement('div');
+                    em.className = 'shower-emoji';
+                    const randEm = megaEmojis[Math.floor(Math.random() * megaEmojis.length)];
+                    em.innerText = randEm;
+
+                    // random position all over screen
+                    em.style.left = Math.random() * 94 + 3 + '%';
+                    em.style.top = Math.random() * 94 + 3 + '%';
+                    const rot = Math.random() * 360;
+                    em.style.transform = `rotate(${rot}deg) scale(0)`;
+                    em.style.fontSize = (2.2 + Math.random() * 5) + 'rem';
+                    em.style.animationDelay = (Math.random() * 0.4) + 's';
+                    overlay.appendChild(em);
+                }
+
+                // add some huge cluster messages
+                for (let j = 0; j < 15; j++) {
+                    const big = document.createElement('div');
+                    big.className = 'shower-emoji';
+                    big.innerText = '💖💗💘';
+                    big.style.left = Math.random() * 80 + 5 + '%';
+                    big.style.top = Math.random() * 80 + 5 + '%';
+                    big.style.fontSize = (4.5 + Math.random() * 4) + 'rem';
+                    big.style.animationDelay = (0.1 + Math.random() * 0.3) + 's';
+                    overlay.appendChild(big);
+                }
+
+                // huge "GRACE ❤️ YOU" banner made of love
+                const banner = document.createElement('div');
+                banner.className = 'shower-emoji';
+                banner.innerHTML = '💞 GRACE 💞 MY 💞 VALENTINE 💞';
+                banner.style.left = '12%';
+                banner.style.top = '15%';
+                banner.style.fontSize = '3.8rem';
+                banner.style.background = '#ffb6c1dd';
+                banner.style.padding = '15px 20px';
+                banner.style.borderRadius = '100px';
+                banner.style.border = '6px solid white';
+                banner.style.boxShadow = '0 0 50px hotpink';
+                banner.style.whiteSpace = 'nowrap';
+                banner.style.animationDelay = '0.1s';
+                banner.style.fontWeight = '900';
+                banner.style.color = '#a00038';
+                overlay.appendChild(banner);
+
+                // change message to more personal
+                messageBox.innerHTML = '<span style="font-size:4rem;">💖🥰💗</span><br>I KNEW IT, GRACE! 💋<br><span style="font-size:2.8rem;">💞💕💘💝💟💌💐🍫</span>';
+
+                // tiny playful haptic illusion (just style)
+                yesBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => yesBtn.style.transform = '', 150);
+
+                // also add another heart wave after 0.3s for fun? maybe but not needed.
+            });
+
+            // double-tap protection: nothing, it's fine.
+            // no fallback for "no" – fully disabled via CSS + additional JS block
+
+            // ultimate blocking for no-area (touch/click)
+            const noBlock = document.querySelector('.no-block');
+            if (noBlock) {
+                noBlock.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+                noBlock.addEventListener('touchstart', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+            }
+            // also any inner no-button elements
+            document.querySelectorAll('.no-button').forEach(el => {
+                el.addEventListener('click', (e) => e.preventDefault());
+                el.addEventListener('touchstart', (e) => e.preventDefault());
+            });
+
+            // ensure that "YES" is the only thing that triggers anything
+            // also make overlay pointer events none
+        })();
+    </script>
+
+    <!-- one more tiny script for responsiveness: lock viewport and disable zoom on buttons -->
+    <script>
+        (function preventDoubleTapZoom() {
+            document.addEventListener('touchstart', (e) => {
+                if (e.target.closest('.yes-love')) {
+                    e.preventDefault(); // prevent any zoom on double tap iOS
+                }
+            }, { passive: false });
+        })();
+    </script>
+</body>
+</html>
